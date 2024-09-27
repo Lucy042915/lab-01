@@ -79,15 +79,15 @@ visitors %>% arrange(desc(n_2022))
 
 _What are the top 10 most visited attractions in 2021?_
 ```{r Ex_c}
-#visitors %>% 
-#  arrange(____(____)) %>%
-#  head(n = ____)
+visitors %>% 
+  arrange(desc(n_2021)) %>%
+  head(n = 10)
 ```
 
 ## Question 4
 
 _What is the admission charge for the `"National Museum of Scotland"`?_
-
+It's free
 ```{r Q4}
 visitors %>% filter(attraction == "National Museum of Scotland")
 ```
@@ -96,25 +96,25 @@ visitors %>% filter(attraction == "National Museum of Scotland")
 ### Exercise d.
 
 _Which attraction had exactly 565,772 visitors in 2022?_
-
+Knowsley Safari and Knowsley Hall
 ```{r Ex_d}
-#visitors %>% filter(___ == ____)
+visitors %>% filter(n_2022 == 565772)
 ```
 
 ### Exercise e.
 
 _How many attraction had more than 1 million visitors in 2022?_
-
+22
 ```{r Ex_e}
-#visitors %>% 
-#  filter(____) %>%
-#  count()
+visitors %>% 
+  filter(n_2022 > 1000000) %>%
+  count()
 ```
 
 ## Question 5
 
 _How many `"O"`utside attractions are there in the `"Yorkshire and the Humber"` region that gives `"Members"` free admission, which had more than 100,000 visitors in 2022?_
-
+3
 ```{r Q5}
 visitors %>%
   filter(
@@ -129,23 +129,23 @@ visitors %>%
 ### Exercise f.
 
 _How many attractions had between 50,000 and 100,000 visitors in 2022?_
-
+50
 ```{r Ex_f}
-#visitors %>% 
-#  ____(
-#    ______,
-#    ______ ) %>%
-#  count()
+visitors %>% 
+  filter(
+    n_2022 > 50000,
+    n_2022 < 100000 ) %>%
+  count()
 ```
 
 ### Exercise g.
 
 _How many regions have more than 50 tourist attraction in the data set? (Hint: You will need to tabulate the data before filtering.)_
-
+97
 ```{r Ex_g}
-#visitors %>% 
-#  _____(region) %>%
-#  filter(______)
+visitors %>% 
+  count(region) %>%
+  filter(n > 50)
 ```
 
 
@@ -155,7 +155,8 @@ _How many regions have more than 50 tourist attraction in the data set? (Hint: Y
 ## Question 6
 
 _What are the mean and median visitor numbers in 2022 across all attractions?_
-
+mean: 351942
+median: 184639.5
 ```{r Q6}
 visitors %>% 
   summarise(
@@ -168,13 +169,14 @@ visitors %>%
 ### Exercise h.
 
 _Perform the same calculation for the 2021 admissions data._
-
+mean: 232430.7
+median: 129829
 ```{r Ex_h}
-#visitors %>% 
-#  ______(
-#    __________,
-#    __________
-#  )
+visitors %>% 
+  summarise(
+    mean_2021 = mean(n_2021, na.rm = TRUE),
+    med_2021 = median(n_2021, na.rm = TRUE),
+  )
 ```
 
 All values in the output are `NA`!
@@ -184,7 +186,7 @@ All values in the output are `NA`!
 _What does `NA` stand for and why are you getting this as your answer to the previous question._
 
 **Write your answer here**
-
+NA means no integer value given so it can't be added into calculation
 
 
 
@@ -193,14 +195,14 @@ _What does `NA` stand for and why are you getting this as your answer to the pre
 _Look at the help pages for the `mean()` and `median()` commands to see what the input argument `na.rm` does. Edit your code from exercise h so that it computes the summary statistics where data is available._
 
 **Write your answer here**
-
+na.rm is to ask whether you'd like to exclude NA values from the calculation.
 
 
 
 ## Question 7
 
 _Which setting (inside, outside or mixed) has the largest mean visitor numbers in 2022?_
-
+Inside
 ```{r Q7}
 visitors %>% 
   group_by(setting) %>%
@@ -215,14 +217,17 @@ visitors %>%
 _Observe in question 6 that the mean statistics across all settings are much larger than the corresponding median statistics. Discuss in your group what this suggests about the data._
 
 **Write your answer here**
-
+The data isn't equally distributed (skewed to the right) so that the mean is greater than the median. It indicated that most attractions doesn't bring as much visitors compare to a few that brings a ton.
 
 
 
 ## Question 8
 
 _What is the interquartile range (the width of the middle 50% of data set between the lower and upper quartiles) the for each of the four nations of the UK?_
-
+England	350362.2			
+Northern Ireland	311046.0			
+Scotland	127986.0			
+Wales	103368.5	
 ```{r Q8}
 visitors_with_nations <- visitors %>%
   mutate(
@@ -247,8 +252,8 @@ _How many tourist attractions are there in each of the 4 nations? From this, dis
 
 
 ```{r Ex_l}
-#________ %>%
-#  ______(_______)
+#visitors %>%
+#  filter(_______)
 ```
 
 

@@ -452,15 +452,28 @@ The Crown Estate, Windsor Great Park</p>
 <div id="exercise-c." class="section level3">
 <h3>Exercise c.</h3>
 <p><em>What are the top 10 most visited attractions in 2021?</em></p>
-<pre class="r"><code>#visitors %&gt;% 
-#  arrange(____(____)) %&gt;%
-#  head(n = ____)</code></pre>
+<pre class="r"><code>visitors %&gt;% 
+  arrange(desc(n_2021)) %&gt;%
+  head(n = 10)</code></pre>
+<pre><code>## # A tibble: 10 × 6
+##    attraction                             n_2021 n_2022 admission setting region
+##    &lt;chr&gt;                                   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt; 
+##  1 The Crown Estate, Windsor Great Park   5.40e6 5.64e6 Free      O       South…
+##  2 Royal Botanic Gardens Kew              1.96e6 1.96e6 Members   M       London
+##  3 Natural History Museum (South Kensing… 1.57e6 4.65e6 Free      I       London
+##  4 RHS Garden Wisley                      1.41e6 1.49e6 Members   O       South…
+##  5 The British Museum                     1.33e6 4.10e6 Free      I       London
+##  6 Tate Modern                            1.16e6 3.88e6 Free      I       London
+##  7 Somerset House                         9.85e5 2.35e6 Free      M       London
+##  8 Science Museum                         9.56e5 2.33e6 Free      I       London
+##  9 Jeskyns Community Woodland             8.79e5 4.47e5 Free      O       South…
+## 10 V&amp;A South Kensington                   8.58e5 2.37e6 Free      I       London</code></pre>
 </div>
 </div>
 <div id="question-4" class="section level2">
 <h2>Question 4</h2>
 <p><em>What is the admission charge for the
-<code>&quot;National Museum of Scotland&quot;</code>?</em></p>
+<code>&quot;National Museum of Scotland&quot;</code>?</em> It’s free</p>
 <pre class="r"><code>visitors %&gt;% filter(attraction == &quot;National Museum of Scotland&quot;)</code></pre>
 <pre><code>## # A tibble: 1 × 6
 ##   attraction                  n_2021  n_2022 admission setting region  
@@ -468,16 +481,25 @@ The Crown Estate, Windsor Great Park</p>
 ## 1 National Museum of Scotland 660741 1973751 Free      I       Scotland</code></pre>
 <div id="exercise-d." class="section level3">
 <h3>Exercise d.</h3>
-<p><em>Which attraction had exactly 565,772 visitors in 2022?</em></p>
-<pre class="r"><code>#visitors %&gt;% filter(___ == ____)</code></pre>
+<p><em>Which attraction had exactly 565,772 visitors in 2022?</em>
+Knowsley Safari and Knowsley Hall</p>
+<pre class="r"><code>visitors %&gt;% filter(n_2022 == 565772)</code></pre>
+<pre><code>## # A tibble: 1 × 6
+##   attraction                        n_2021 n_2022 admission setting region    
+##   &lt;chr&gt;                              &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;     
+## 1 Knowsley Safari and Knowsley Hall     NA 565772 Members   M       North West</code></pre>
 </div>
 <div id="exercise-e." class="section level3">
 <h3>Exercise e.</h3>
 <p><em>How many attraction had more than 1 million visitors in
-2022?</em></p>
-<pre class="r"><code>#visitors %&gt;% 
-#  filter(____) %&gt;%
-#  count()</code></pre>
+2022?</em> 22</p>
+<pre class="r"><code>visitors %&gt;% 
+  filter(n_2022 &gt; 1000000) %&gt;%
+  count()</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##       n
+##   &lt;int&gt;
+## 1    22</code></pre>
 </div>
 </div>
 <div id="question-5" class="section level2">
@@ -485,7 +507,7 @@ The Crown Estate, Windsor Great Park</p>
 <p><em>How many <code>&quot;O&quot;</code>utside attractions are there in the
 <code>&quot;Yorkshire and the Humber&quot;</code> region that gives
 <code>&quot;Members&quot;</code> free admission, which had more than 100,000
-visitors in 2022?</em></p>
+visitors in 2022?</em> 3</p>
 <pre class="r"><code>visitors %&gt;%
   filter(
     setting == &quot;O&quot;,
@@ -501,21 +523,29 @@ visitors in 2022?</em></p>
 <div id="exercise-f." class="section level3">
 <h3>Exercise f.</h3>
 <p><em>How many attractions had between 50,000 and 100,000 visitors in
-2022?</em></p>
-<pre class="r"><code>#visitors %&gt;% 
-#  ____(
-#    ______,
-#    ______ ) %&gt;%
-#  count()</code></pre>
+2022?</em> 50</p>
+<pre class="r"><code>visitors %&gt;% 
+  filter(
+    n_2022 &gt; 50000,
+    n_2022 &lt; 100000 ) %&gt;%
+  count()</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##       n
+##   &lt;int&gt;
+## 1    50</code></pre>
 </div>
 <div id="exercise-g." class="section level3">
 <h3>Exercise g.</h3>
 <p><em>How many regions have more than 50 tourist attraction in the data
-set? (Hint: You will need to tabulate the data before
-filtering.)</em></p>
-<pre class="r"><code>#visitors %&gt;% 
-#  _____(region) %&gt;%
-#  filter(______)</code></pre>
+set? (Hint: You will need to tabulate the data before filtering.)</em>
+97</p>
+<pre class="r"><code>visitors %&gt;% 
+  count(region) %&gt;%
+  filter(n &gt; 50)</code></pre>
+<pre><code>## # A tibble: 1 × 2
+##   region       n
+##   &lt;chr&gt;    &lt;int&gt;
+## 1 Scotland    97</code></pre>
 </div>
 </div>
 </div>
@@ -524,7 +554,7 @@ filtering.)</em></p>
 <div id="question-6" class="section level2">
 <h2>Question 6</h2>
 <p><em>What are the mean and median visitor numbers in 2022 across all
-attractions?</em></p>
+attractions?</em> mean: 351942 median: 184639.5</p>
 <pre class="r"><code>visitors %&gt;% 
   summarise(
     mean_2022 = mean(n_2022),
@@ -536,20 +566,25 @@ attractions?</em></p>
 ## 1   351942.  184640.</code></pre>
 <div id="exercise-h." class="section level3">
 <h3>Exercise h.</h3>
-<p><em>Perform the same calculation for the 2021 admissions
-data.</em></p>
-<pre class="r"><code>#visitors %&gt;% 
-#  ______(
-#    __________,
-#    __________
-#  )</code></pre>
+<p><em>Perform the same calculation for the 2021 admissions data.</em>
+mean: 232430.7 median: 129829</p>
+<pre class="r"><code>visitors %&gt;% 
+  summarise(
+    mean_2021 = mean(n_2021, na.rm = TRUE),
+    med_2021 = median(n_2021, na.rm = TRUE),
+  )</code></pre>
+<pre><code>## # A tibble: 1 × 2
+##   mean_2021 med_2021
+##       &lt;dbl&gt;    &lt;dbl&gt;
+## 1   232431.   129829</code></pre>
 <p>All values in the output are <code>NA</code>!</p>
 </div>
 <div id="exercise-i." class="section level3">
 <h3>Exercise i.</h3>
 <p><em>What does <code>NA</code> stand for and why are you getting this
 as your answer to the previous question.</em></p>
-<p><strong>Write your answer here</strong></p>
+<p><strong>Write your answer here</strong> NA means no integer value
+given so it can’t be added into calculation</p>
 </div>
 <div id="exercise-j." class="section level3">
 <h3>Exercise j.</h3>
@@ -557,13 +592,14 @@ as your answer to the previous question.</em></p>
 <code>median()</code> commands to see what the input argument
 <code>na.rm</code> does. Edit your code from exercise h so that it
 computes the summary statistics where data is available.</em></p>
-<p><strong>Write your answer here</strong></p>
+<p><strong>Write your answer here</strong> na.rm is to ask whether you’d
+like to exclude NA values from the calculation.</p>
 </div>
 </div>
 <div id="question-7" class="section level2">
 <h2>Question 7</h2>
 <p><em>Which setting (inside, outside or mixed) has the largest mean
-visitor numbers in 2022?</em></p>
+visitor numbers in 2022?</em> Inside</p>
 <pre class="r"><code>visitors %&gt;% 
   group_by(setting) %&gt;%
   summarise(
@@ -581,14 +617,20 @@ visitor numbers in 2022?</em></p>
 <p><em>Observe in question 6 that the mean statistics across all
 settings are much larger than the corresponding median statistics.
 Discuss in your group what this suggests about the data.</em></p>
-<p><strong>Write your answer here</strong></p>
+<p><strong>Write your answer here</strong> The data isn’t equally
+distributed (skewed to the right) so that the mean is greater than the
+median. It indicated that most attractions doesn’t bring as much
+visitors compare to a few that brings a ton.</p>
 </div>
 </div>
 <div id="question-8" class="section level2">
 <h2>Question 8</h2>
 <p><em>What is the interquartile range (the width of the middle 50% of
 data set between the lower and upper quartiles) the for each of the four
-nations of the UK?</em></p>
+nations of the UK?</em> England 350362.2<br />
+Northern Ireland 311046.0<br />
+Scotland 127986.0<br />
+Wales 103368.5</p>
 <pre class="r"><code>visitors_with_nations &lt;- visitors %&gt;%
   mutate(
     nation = case_when(
@@ -616,8 +658,8 @@ visitors_with_nations %&gt;%
 <p><em>How many tourist attractions are there in each of the 4 nations?
 From this, discuss in your group how reliable you think the
 inter-quartile estimates are.</em></p>
-<pre class="r"><code>#________ %&gt;%
-#  ______(_______)</code></pre>
+<pre class="r"><code>#visitors %&gt;%
+#  filter(_______)</code></pre>
 </div>
 </div>
 </div>
